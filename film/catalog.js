@@ -19,7 +19,6 @@ function loadFilms() {
                     "<div class='caption'> " +
                     "<h3>" + title + "</h3>" +
                     "<p>Длительность " + duration + " минут</p>" +
-                    "<a  class='btn btn-primary' role='button'>Купить</a> " +
                     "<a href= ../film/film.php?id=" + idFilm+" class='btn btn-default'  role='button'>Описание</a>" +
                     "</div>" +
                     "</div>" +

@@ -1,0 +1,79 @@
+.catalog-films {
+    width: 100%;
+}
+
+
+table {
+    margin: 0 auto;
+    font-family:Sans-Serif;
+    font-size: 17px;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 5px;
+    background: #ECE9E0;
+    color: #656665;
+    border: 16px solid #ECE9E0;
+    border-radius: 20px;
+}
+th {
+    font-size: 18px;
+    padding: 10px;
+}
+td {
+    background: #F5D7BF;
+    padding: 10px;
+    font-family: "Monospaced";
+    font-size: 25px;
+    color : #777777;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+
+}
+
+th:first-child {
+
+    font-family: "Monospaced";
+    font-style: oblique;
+    font-size: 25px;
+    color : #C07DC3;
+}
+
+
+a {
+    display: inline-block;
+    position: relative;
+    color: #333333;
+    text-decoration: none;
+    padding: 0.2em 0.05em;
+    border-bottom: 2px solid #333333;
+}
+
+a:hover {
+    color: #efefef;
+}
+
+a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #333333;
+    z-index: -1;
+    transition: all 0.1s cubic-bezier(0.000, 0.590, 1.000, 0.260);
+}
+
+a:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #333333;
+    z-index: -1;
+}

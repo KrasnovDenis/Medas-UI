@@ -15,6 +15,8 @@ function loadSchedule() {
                 var screenPrice = content[i]['screenPrice'];
                 var screenDateTime = content[i]['screenDateTime'];
                 var filmRating = content[i]['filmRating'];
+                var id_hall = content[i]['idHall'];
+                var id_screen = content[i]['idScreen'];
 
                 document.getElementById('catalogFilms').innerHTML += "" +
                     "<div>" +
@@ -28,7 +30,7 @@ function loadSchedule() {
                     "<h3>"+hallTitle+"</h3>" +
                     "<p>Цена: " + screenPrice + "</p>" +
                     "<p>" + filmRating + "☆ из 5 </p>" +
-                     " <p> <a  class='btn btn-primary' role='button'>Купить билет</a> </p>" +
+                     " <p> <a href= ../hall/hall.php?id="+id_hall+"&id_screen="+id_screen+" class='btn btn-primary' role='button'>Купить билет</a> </p>" +
                     "</div>" +
                     "</div>";
 

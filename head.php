@@ -13,5 +13,6 @@
     <script src="../scripts/registration.js"></script>
     <script src="../film/catalog.js"></script>
     <script src="../film/film.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha512.js"></script>
     <script src="../schedule/schedulePage.js"></script>
 </head>

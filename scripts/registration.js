@@ -19,7 +19,6 @@ function registration() {
         'dateBirth': dateBirth,
         'lastName': lastName
     });
-    xhr = new XMLHttpRequest();
     fetch('http://localhost:8080/registration', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

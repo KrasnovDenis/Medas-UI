@@ -28,8 +28,8 @@ function get_user(id) {
 }
 
 function loadUserPage() {
-    if (localStorage.length < 1)
-        window.location.replace("/urbas#");
+    if (!localStorage.Authorization)
+        window.location.replace("http://urbas");
 
 
     document.getElementById('greeting').innerText += localStorage["firstName"];
@@ -43,7 +43,7 @@ function loadUserPage() {
 
     xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:8080/tickets/' + localStorage.id);
-    xhr.setRequestHeader('Authorization', localStorage.Authorization);
+
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
 
@@ -76,7 +76,7 @@ function loadUserPage() {
 
 
     });
-
+    xhr.setRequestHeader('Authorization', localStorage.Authorization);
     xhr.setRequestHeader('Content-Type', 'applicaton/json');
     xhr.send();
 

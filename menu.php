@@ -44,9 +44,9 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">БОЛЬШЕ
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a type='button' data-toggle='modal' data-target='#login-form'>LOG IN</a></li>
+                        <li><a id ='loginButton' type='button' data-toggle='modal' data-target='#login-form'>LOG IN</a></li>
 
-                        <li><a type="button" data-toggle="modal" data-target="#registration-form">REGISTRATION</a></li>
+                        <li><a id ='registrationButton' type="button" data-toggle="modal" data-target="#registration-form">REGISTRATION</a></li>
 
                     </ul>
                 </li>
@@ -63,7 +63,7 @@
 <!--ВХОД-->
 
 
-<div id="login-form" class="modal fade">
+<div id="login-form" class="modal fade" style="z-index: 10000">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,6 +176,11 @@
         if(localStorage.Login === 'successful'){
             document.getElementById('menuNavBar').innerHTML += '<li><a href=/user/account.php>' + localStorage['firstName'].toUpperCase()+ '</a></li>';
             document.getElementById('menuNavBar').innerHTML += '<li><a href=# onclick=logout()>LOG OUT</a></li>';
+        }
+
+        if(localStorage.role === "ADMIN") {
+            document.getElementById('menuNavBar').innerHTML +=
+                        '<li><a href=/admin/admin.php>Админка</a></li>';
         }
 </script>
 
