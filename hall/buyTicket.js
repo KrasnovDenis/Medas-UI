@@ -1,3 +1,5 @@
+
+
 function buyTicket() {
 
     if (!(localStorage.Authorization && sessionStorage.seat)) {
@@ -5,36 +7,69 @@ function buyTicket() {
         return false;
     }
 
+
     var chairNumber = sessionStorage.seat;
     var userId = localStorage.id;
     var screenId = getAllUrlParams(window.location.href).id_screen;
 
 
+    getJsonScreen(screenId);
+    getJsonUser(userId);
 
-    var contextResponse = "";
+
     var body = JSON.stringify({
-        "screenId": screenId,
-        "userId": userId,
+        "user": JSON.parse(sessionStorage.getItem("user")),
+        "screen": JSON.parse(sessionStorage.getItem("screen")),
         "chair": chairNumber
     });
 
+    var contextResponse = "";
     xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/tickets');
     xhr.setRequestHeader('Authorization', localStorage.Authorization);
     xhr.setRequestHeader('Content-Type', 'application/json',);
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            contextResponse = xhr.responseText;
-            if(contextResponse == false || contextResponse == "false"){
+            contextResponse = JSON.parse(xhr.responseText);
+            if (contextResponse['id']  == 0) {
                 alert("Место занято, либо нет денях :С");
-            }
-            else {
+            } else {
                 alert("Место успешно куплено");
             }
         }
     });
 
     xhr.send(body);
+
+}
+
+function getJsonUser(userId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8080/users/' + userId, false);
+    xhr.setRequestHeader('Authorization', localStorage.Authorization);
+    xhr.setRequestHeader('Content-Type', 'application/json',);
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            sessionStorage.setItem("user",xhr.responseText);
+        }
+    });
+
+    xhr.send();
+
+}
+
+function getJsonScreen(screenId) {
+    var xhrScreen = new XMLHttpRequest();
+    xhrScreen.open('GET', 'http://localhost:8080/screen/' + screenId,false);
+    xhrScreen.setRequestHeader('Authorization', localStorage.Authorization);
+    xhrScreen.setRequestHeader('Content-Type', 'application/json',);
+    xhrScreen.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+           sessionStorage.setItem("screen",xhrScreen.responseText);
+        }
+    });
+
+    xhrScreen.send();
 
 }
 

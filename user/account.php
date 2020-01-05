@@ -19,64 +19,48 @@ require 'form_change.php';
 
 
 <div class="container-fluid">
-    <div class="row">
 
-        <div class="col-lg-3">
-            <div class="thumbnail">
 
-                <h2>Ваш профиль</h2>
-                <span class='pull-right'>
+    <div class="col-lg-3">
+        <div class="thumbnail" style="font-family: Forte; font: 24px black">
+
+            <h2>Ваш профиль</h2>
+            <span class='pull-right'>
                             <a type='button' data-toggle='modal' data-target='#form_change'>
                                 <span class='glyphicon glyphicon-pencil'>
                                 </span>
                             </a>
-                        </span>
+            </span>
 
 
-                <br>
+            <p id="userFirstName">Имя :</p>
+            <p id="userLastName">Фамилия :</p>
+            <p id="birthDate">Дата рождения :</p>
+            <p id="money">Баланс :</p>
+            <button class="btn-info btn" onclick="addMoney()">Пополнить баланс</button>
+            <!---->
+        </div>
+    </div>
 
-                <div  class="col-1">
-                    <span class='pull-right'>
-                        <h3 id="userFirstName">Имя :</h3>
-                    </span><br>
-                    <span class='pull-right'>
-                        <h3 id="userLastName">Фамилия :</h3>
-                    </span><br>
-                    <span class='pull-right'>
-                        <h3 id="birthDate">Дата рождения :</h3>
-                    </span><br>
-                    <span class='pull-right'>
-                        <h3 id="money">Баланс :</h3>
-                    </span><br>
-                    <!---->
-                </div>
-            </div>
+
+    <div class="col-lg-8">
+
+        <div class='page-header'>
+            <h1 id="greeting">Здравствуйте, </h1>
         </div>
 
 
-        <div class="col-lg-8">
-
-            <div class='page-header'>
-                <h1 id="greeting">Здравствуйте, </h1>
-            </div>
+        <!--    коризина  -->
+        <h2>Ваша корзина</h2>
 
 
-            <!--    коризина  -->
-            <h2>Ваша корзина</h2>
-            <div>
+        <ul id="userBasket" class='list-group'>
 
+        </ul>
 
-                <ul id="userBasket" class='list-group'>
-<!--                    <li class='list-group-item'>Название -</li>-->
-<!--                    <li class='list-group-item'>Стоимость -</li>-->
-<!--                    <li class='list-group-item'>Год съемки - </li>-->
-                </ul>
-
-
-            </div>
-        </div>
 
     </div>
+
 </div>
 
 

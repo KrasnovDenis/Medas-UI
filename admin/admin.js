@@ -1,8 +1,32 @@
+
+
 function loadAdminPage() {
     if (localStorage.role != "ADMIN") {
         alert("У вас нет доступа к этой странице");
         window.location.replace("http://urbas");
     }
+
+
+
+    var content = "";
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8080/films');
+    xhr.setRequestHeader('Authorization', localStorage.Authorization);
+    xhr.setRequestHeader('Content-Type', 'applicaton/json');
+    xhr.addEventListener("readystatechange", function () {
+
+            if (this.readyState === 4) {
+                content = JSON.parse(xhr.responseText);
+                for (var i = 0; i < content.length; i++) {
+
+                    var titleFilm = content[i]['title'];
+                    document.getElementById('filmSelect').innerHTML += "" +
+                        "<option value="+ content[i]['id'] +"> " + titleFilm + "</option>"
+
+                }
+            }
+        });
+    xhr.send();
 
 }
 
@@ -15,13 +39,18 @@ function addScreen() {
 
     dateTimeFilm = new Date(dateTimeFilm).getTime();
 
+
     var body = JSON.stringify({
-        "idFilm": film,
-        "idHall": hall,
+        "hall": {
+            "id": hall
+        },
+        "film": {
+            "id": film,
+        },
         "dateTime": dateTimeFilm,
         "price": price
-
     });
+
 
     xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/screen');
@@ -46,9 +75,11 @@ function removeFilm() {
 
 }
 
+
 function addFilm() {
-    var poster = document.getElementById('poster').value;
+
     var duration = document.getElementById('duration').value;
+    var poster = document.getElementById('poster').value;
     var title = document.getElementById('title').value;
     var director = document.getElementById('director').value;
     var producer = document.getElementById('producer').value;
@@ -65,10 +96,12 @@ function addFilm() {
         "count_review": count_review
     });
 
+
+
     xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/films');
     xhr.setRequestHeader('Authorization', localStorage.Authorization);
-    xhr.setRequestHeader('Content-Type', 'application/json',);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             if (xhr.responseText == "") {
@@ -96,3 +129,4 @@ function updateScreen() {
 function updateFilm() {
 
 }
+

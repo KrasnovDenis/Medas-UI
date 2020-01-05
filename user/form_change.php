@@ -19,51 +19,36 @@
                 <div class='row'>
                     <div class='col-lg-2'></div>
 
-                    <!--                    форма -->
-                    <form  method='post' class='col-lg-2 form-group'>
+                    <form method='post' onsubmit="update_user(); return false;" class='col-lg-2 form-group'>
                         <div class='form-group'>
-                            <input type='text' class='form-control' pattern='[А-яA-z]{3,15}' name='First_name'
-                                   ">
-                            <i class='fa fa-lock'></i>
+                            <input id= "firstName-form" type='text' class='form-control' placeholder="First Name" pattern='[А-яA-z]{3,15}'
+                                   name='First_name' required>
                         </div>
                         <div class='form-group'>
-                            <input type='text' class='form-control' pattern='[А-яA-z]{3,15}' name='Last_name'
-                                   ">
-                            <i class='fa fa-lock'></i>
-                        </div>
-                        <div class='form-group'>
-                            <input type='text' class='form-control' pattern='[А-яA-z]{0,15}' name='Vather_name'
-                                  ">
-                            <i class='fa fa-lock'></i>
-                        </div>
-                        <div class='form-group'>
-                            <input type='text' class='form-control' pattern='^(?=.*\d)(?=.*[A-z])(?!.*\s).*$'
-                                   name='Login'  required>
-                            <i class='fa fa-user'></i>
-                        </div>
-                        <div class='form-group'>
-                            <input type='text' class='form-control' name='Sex'  required>
-                            <i class='fa fa-lock'></i>
+                            <input id="lastName-form" type='text' class='form-control' placeholder="Last Name" pattern='[А-яA-z]{3,15}'
+                                   name='Last_name' required>
+
                         </div>
 
                         <div class='form-group'>
-                            <input type='text' class='form-control' name='Address'
-                                   required>
-                            <i class='fa fa-lock'></i>
+                            <input id="login-form-change" type='text' class='form-control' placeholder="login"
+                                   pattern='^(?=.*\d)(?=.*[A-z])(?!.*\s).*$'
+                                   name='Login' required>
+
                         </div>
 
+
                         <div class='form-group'>
-                            <input type='text' class='form-control' name='Date_birth'
+                            <input id="date" type='date' class='form-control' name='Date_birth'
                                    required>
-                            <i class='fa fa-lock'></i>
                         </div>
                         <div class='form-group'>
-                            <input type='Email' class='form-control' name='Email' required>
-                            <i class='fa fa-lock'></i>
+                            <input id="email-form" type='Email' class='form-control' placeholder="Email" name='Email' required>
+
                         </div>
 
                         <button type='submit' class='btn btn-warning' name='submit' style='display:block;'>
-                            Зарегистрироваться
+                            Изменить параметры
                         </button>
 
                     </form>

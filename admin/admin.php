@@ -55,6 +55,8 @@ require '../menu.php';
                     фильма</a>
                 <a class='btn btn-primary' role='button' data-toggle="modal" data-target="#addFilm">Добавить новый
                     фильм</a>
+                <a class='btn btn-primary' role='button' data-toggle="modal" onclick="window.location.replace('http://urbas/films/catalog.php');">
+                    Посмотреть доступные фильмы</a>
 
 
             </div>
@@ -83,17 +85,8 @@ require '../menu.php';
 
                     <!--form-->
                     <form action="#" onsubmit=" addScreen(); return false;" method="post" class="col-lg-2">
-                        <select id="filmSelect" name="title" required>
+                        <select id="filmSelect" name="title"  required>
                             <option disabled>Выберите фильм из списка</option>
-                            <option value="1"> Гордость и предубеждение</option>
-                            <option value="2">Человек-волк</option>
-                            <option value="3">Тор</option>
-                            <option value="4">300 спартанцев</option>
-                            <option value="5">Дивергент</option>
-                            <option value="6">Скорый Москва-Россия</option>
-                            <option value="7">Шерлок Холмс: Игра теней</option>
-                            <option value="8">Гарри Поттер Принц полукровка</option>
-                            <option value="9">Волкодав</option>
                         </select>
                         <input id="dateTimeFilm" type="datetime-local" name="dateTimeFilm" required/>
                         <input id="price" type="text" name="price" placeholder="Цена билета" required/>
@@ -134,13 +127,11 @@ require '../menu.php';
                     <!--form-->
                     <form action="#" onsubmit="addFilm();return false;" method="post" class="col-lg-2">
                         <input id="title" type="text" name="title" required placeholder="Title"/>
-                        <input id="duration" type="text" pattern="[0-9]{1,2}" name="duration" required
+                        <input id="duration" type="text" pattern="[0-9]{2,3}" name="duration" required
                                placeholder="Duration"/>
                         <input id="rating" type="number" pattern="[1-5]{1}" name="rating by 5 star" required
                                placeholder="Rating"/>
-                        <div class="file-upload-wrapper">
-                            <input id="poster"  type="file" id="input-file-now" class="file-upload"/>
-                        </div>
+                        <input id="poster" type="text" placeholder="ссылка на картинку"/>
                         <input id="director" type="text" name="director" required placeholder="Director"/>
                         <input id="producer" type="text" name="producer" required placeholder="Producer"/>
                         <input id="count_review" type="number" name="count_review" required placeholder="Count_review"/>

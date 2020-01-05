@@ -15,8 +15,9 @@ function registration() {
         'password': password,
         'firstName': firstName,
         'email': email,
-        'phone': phone,
-        'dateBirth': dateBirth,
+        'telephone': phone,
+        'role' : "USER",
+        'birthDate': dateBirth,
         'lastName': lastName
     });
     fetch('http://localhost:8080/registration', {

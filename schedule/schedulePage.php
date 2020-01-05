@@ -12,8 +12,8 @@ require '../menu.php';
 ?>
 
 
-<div class="page-header" style="margin-left: 30px; margin-right: 30px">
-    <h1>Погрузитесь в мир кино с отечественными новинками! <br>
+<div class="page-header">
+    <h1  style=" text-align: center;">Погрузитесь в мир кино с отечественными новинками! <br>
         <small> И шедеврами мирового кино</small>
     </h1>
 </div>
@@ -22,7 +22,7 @@ require '../menu.php';
 
 
 
-<div class="main" style="max-width: 1230px;">
+<div class="main" style="max-width: 1230px; margin : 0 auto;">
     <div class="wrapper">
         <div id = "catalogFilms" class="catalog-films">
 
