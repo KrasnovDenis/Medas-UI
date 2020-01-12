@@ -10,16 +10,13 @@ function login() {
 
     var contextResponse = "";
 
-    // var sha_ob = new jsSHA('SHA-512', 'TEXT');
-    // sha_ob.update(password);
-    // password = sha_ob.getHash('HEX');
     var body = JSON.stringify({'username': username, 'password': password});
     xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/login');
     xhr.addEventListener("readystatechange", function () {
 
         if (this.readyState === 4) {
-            if (xhr.responseText == "") {
+            if (xhr.status == 404) {
                 alert("Неверные логин или пароль");
                 return false;
 

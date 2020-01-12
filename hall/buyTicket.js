@@ -30,8 +30,8 @@ function buyTicket() {
     xhr.setRequestHeader('Content-Type', 'application/json',);
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            contextResponse = JSON.parse(xhr.responseText);
-            if (contextResponse['id']  == 0) {
+
+            if (this.status != 200) {
                 alert("Место занято, либо нет денях :С");
             } else {
                 alert("Место успешно куплено");

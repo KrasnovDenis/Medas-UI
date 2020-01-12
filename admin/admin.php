@@ -17,35 +17,14 @@ require '../menu.php';
 <!--    приветствие и панельки-->
 
 
-<div class="container-fluid">
-    <div class="row">
-
-        <div class="col-lg-3">
-            <div class="thumbnail">
-
-                <h2>Администратор</h2>
-                <span class='pull-right'>
-                            <a type='button' data-toggle='modal' data-target='#form_change'>
-                                <span class='glyphicon glyphicon-pencil'>
-                                </span>
-                            </a>
-                        </span>
 
 
-                <br>
-
-                <div id="aboutUser" class="col-1">
-
-                    <!---->
-                </div>
-            </div>
-        </div>
 
 
-        <div class="col-lg-8">
+        <div style="width: 900px; margin: 0 auto;">
 
-            <div class='page-header'>
-                <h1 id="greeting">Здравствуйте, </h1>
+            <div class='page-header' style="text-align: center;">
+                <h1 id="greeting">Здравствуйте, Администратор</h1>
             </div>
 
 
@@ -55,7 +34,7 @@ require '../menu.php';
                     фильма</a>
                 <a class='btn btn-primary' role='button' data-toggle="modal" data-target="#addFilm">Добавить новый
                     фильм</a>
-                <a class='btn btn-primary' role='button' data-toggle="modal" onclick="window.location.replace('http://urbas/films/catalog.php');">
+                <a class='btn btn-primary' role='button' onclick="window.location.replace('http://urbas/films/catalog.php');">
                     Посмотреть доступные фильмы</a>
 
 
@@ -66,8 +45,8 @@ require '../menu.php';
             <br/>
         </div>
 
-    </div>
-</div>
+
+
 
 
 <!-- Добавить новый сеанс-->
@@ -99,7 +78,7 @@ require '../menu.php';
                         </select>
 
                         <button type="submit" class="btn btn-warning" name="submit"
-                                style="display:block; margin: 0 auto;"> Купить
+                                style="display:block; margin: 0 auto;"> Добавить показ
                         </button>
                     </form>
 
@@ -129,15 +108,15 @@ require '../menu.php';
                         <input id="title" type="text" name="title" required placeholder="Title"/>
                         <input id="duration" type="text" pattern="[0-9]{2,3}" name="duration" required
                                placeholder="Duration"/>
-                        <input id="rating" type="number" pattern="[1-5]{1}" name="rating by 5 star" required
+                        <input id="rating" type="text" pattern="[1-5]{1}" name="rating by 5 star" required
                                placeholder="Rating"/>
-                        <input id="poster" type="text" placeholder="ссылка на картинку"/>
-                        <input id="director" type="text" name="director" required placeholder="Director"/>
+                        <input id="poster" type="text"  pattern="[А-я]{20,255}|[A-z]{20,255}" placeholder="ссылка на картинку"/>
+                        <input id="director" type="text" pattern="[А-я]{4,20}|[A-z]{4,20}" name="director" required placeholder="Director"/>
                         <input id="producer" type="text" name="producer" required placeholder="Producer"/>
                         <input id="count_review" type="number" name="count_review" required placeholder="Count_review"/>
 
                         <button type="submit" class="btn btn-warning" name="submit"
-                                style="display:block; margin: 0 auto;"> Купить
+                                style="display:block; margin: 0 auto;"> Добавить фильм
                         </button>
                     </form>
 

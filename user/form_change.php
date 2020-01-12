@@ -31,9 +31,9 @@
                         </div>
 
                         <div class='form-group'>
-                            <input id="login-form-change" type='text' class='form-control' placeholder="login"
-                                   pattern='^(?=.*\d)(?=.*[A-z])(?!.*\s).*$'
-                                   name='Login' required>
+                            <input id="telephone-form" type='text' class='form-control' placeholder="телефон"
+                                   pattern='[0-9]{5,17}'
+                                   name='telephone' required>
 
                         </div>
 

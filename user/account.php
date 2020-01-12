@@ -22,7 +22,7 @@ require 'form_change.php';
 
 
     <div class="col-lg-3">
-        <div class="thumbnail" style="font-family: Forte; font: 24px black">
+        <div class="thumbnail" style="font-family: Forte; font: 24px black; background: #f5f5f5; border: 2px solid #bbaeff;">
 
             <h2>Ваш профиль</h2>
             <span class='pull-right'>
@@ -51,10 +51,10 @@ require 'form_change.php';
 
 
         <!--    коризина  -->
-        <h2>Ваша корзина</h2>
+        <h2>Билеты</h2>
 
 
-        <ul id="userBasket" class='list-group'>
+        <ul id="userBasket" class='list-group' >
 
         </ul>
 

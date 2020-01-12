@@ -11,18 +11,20 @@ function loadSchedule() {
             var hallTitle =r[i].hall.title;
             var filmtitle =r[i].film.title;
             var screenPrice =r[i].price;
-            var screenDateTime =r[i].dateTime;
+            var screenDateTime = new Date(r[i].dateTime);
             var filmRating =r[i].film.rating;
             var id_hall =r[i].hall.id;
             var id_screen =r[i].id;
+            var minutes = (screenDateTime.getMinutes()<10?'0':'') + screenDateTime.getMinutes();
 
+            if(screenDateTime < new Date()) continue;
             document.getElementById('catalogFilms').innerHTML += "" +
                 "<div>" +
                 "<div class='image' >" +
                 "<img src=" + poster + " width = '250px;' height='300px;' >" +
                 "</div>" +
                 "<div class='about'>" +
-                "<h2>Дата: " + screenDateTime + "</h2>" +
+                "<h2>Дата: " + formatDate(screenDateTime) + " " +screenDateTime.getHours()+ ":"+ minutes +"</h2>" +
                 "<h1>" + filmtitle + "</h1>" +
                 "<h3>" + duration + " минут</h3>" +
                 "<h3>" + hallTitle + "</h3>" +
@@ -37,4 +39,20 @@ function loadSchedule() {
 
 
 
+}
+
+
+function formatDate(date) {
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }

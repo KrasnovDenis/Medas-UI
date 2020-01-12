@@ -1,51 +1,95 @@
+var d1 = $.Deferred();
+
+
+$.when(d1).done(function () {
+    getBusySeats();
+});
+
+
+function getBusySeats() {
+    var idScreen = getAllUrlParams(window.location.href).id_screen;
+    var x = [];
+    (async () => {
+        const resp = await fetch("http://localhost:8080/tickets/?id_screen=" + idScreen);
+        var j_old = 0;
+        const json = await resp.json();
+
+        for (var i = 0; i < json.length; i++) {
+            x.push(json[i].chair);
+        }
+
+        var countSeats = sessionStorage["capacity"];
+        let countRows = countSeats / 10 + 1;
+
+        for (var i = 1; i < countRows; i++) {
+            var cell = "";
+            for (var j = j_old + 1, k = 0; k < 10; j++, k++) {
+                var stateOfSeat = parseInt(document.getElementById(j).innerText);
+                if (x.indexOf(stateOfSeat)>=0) {
+                    console.log(j);
+                    document.getElementById(j).parentNode.innerText = "ЗАНЯТО";
+                }
+                j_old = j;
+            }
+        }
+    })();
+
+
+
+}
+
 function loadHall() {
     var content = [];
     xhr = new XMLHttpRequest();
     var idHall = getAllUrlParams(window.location.href).id;
     var idScreen = getAllUrlParams(window.location.href).id_screen;
 
+
     xhr.open('GET', 'http://localhost:8080/halls/' + idHall + "?id_screen=" + idScreen);
     xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                content = JSON.parse(xhr.responseText);
-                console.log(content);
+        if (this.readyState === 4) {
+            content = JSON.parse(xhr.responseText);
+            d1.resolve();
+            var titleHall = content.hall.title;
+            var countSeats = content.hall.capacity;
+            var dateTime = new Date(content.dateTime);
+            let countRows = countSeats / 10 + 1;
 
-                console.log(content.hall.title);
-                var titleHall = content.hall.title;
-                var countSeats = content.hall.capacity;
-                var dateTime = content.dateTime;
+            var minutes = (dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes();
+            sessionStorage["capacity"] = countSeats;
+
+            content = JSON.parse(xhr.responseText);
+
+            document.getElementById('hallName').innerText += titleHall
+                + "\n По сеансу в " + formatDate(dateTime) + " " + dateTime.getHours() + ":" + minutes +
+            "\n Фильм : " + content.film.title;
 
 
-                let countRows = countSeats / 10 + 1;
+            var j_old = 0;
+            for (var i = 1; i < countRows; i++) {
+                var cell = "";
+                for (var j = j_old + 1, k = 0; k < 10; j++, k++) {
 
-                document.getElementById('hallName').innerText += titleHall
-                    + " По сеансу в " + dateTime;
+                    cell += "<td> <a id='" + j + "' type=button data-toggle=modal data-target=#buy_ticket onclick=sessionStorage.seat=" + j + ";>" + j + "</a></td>";
 
-                var j_old = 0;
-
-                for (var i = 1; i < countRows; i++) {
-                    var cell = "";
-                    for (var j = j_old + 1, k = 0; k < 10; j++, k++) {
-
-                        cell += "<td> <a type=button data-toggle=modal data-target=#buy_ticket onclick=sessionStorage.seat=" + j + ";>" + j + "</a></td>";
-
-                        j_old = j;
-                    }
-
-                    document.getElementById('hallTable').innerHTML +=
-                        "<tr>" + cell + "</tr>";
+                    j_old = j;
                 }
 
-
+                document.getElementById('hallTable').innerHTML +=
+                    "<tr>" + cell + "</tr>";
             }
 
+
         }
-    )
-    ;
-    xhr.setRequestHeader('Content-Type', 'applicaton/json');
+
+
+    });
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();
 
+
 }
+
 
 function getAllUrlParams(url) {
 
@@ -107,4 +151,119 @@ function getAllUrlParams(url) {
     }
 
     return obj;
+}
+
+
+function WaitSync(callback) {
+
+
+    var completeCount = 0;
+    var flags = {};
+
+    // task return values will be stored here
+    // and will be passed to callback as argument
+    var buffer = {
+        'order': [],
+        'groupOrder': [],
+        'data': {}
+    };
+    var wrapOne = function (task, ctx) {
+        // remember in which order did we come in
+        var whoAmI = completeCount;
+
+        // add count
+        completeCount++;
+        var iAmDone = false;
+
+        return function () {
+
+            // proxy, buffer
+            var tmp = task.apply(ctx, arguments);
+
+            // log the result
+            buffer.order.push(whoAmI);
+
+            // just returns result if the same task called twice
+            // actually it means your design needs some refactoring
+            if (iAmDone)
+                return tmp;
+
+            // is it time to call back? :)
+            completeCount--;
+
+            iAmDone = true;
+
+            if (completeCount === 0)
+                callback(buffer);
+
+            return tmp;
+        }
+
+    };
+
+    var wrapGroup = function (groupName, task, ctx) {
+
+        // if not created earlier
+        if (flags[groupName] !== false) {
+            // set task group uncomplete
+            flags[groupName] = false;
+            completeCount++;
+        }
+
+        // to prevent doubletriggerring (actually not necessary here)
+        var iAmDone = false;
+
+        return function () {
+            var tmp = task.apply(ctx, arguments);
+
+
+            // same as in wrap... just return result if called twice
+            if (iAmDone)
+                return tmp;
+
+            // only if group is not done
+            if (!flags[groupName]) {
+                completeCount--;
+                flags[groupName] = true;
+
+                // log result:
+                buffer.order.push(groupName);
+                buffer.groupOrder.push(groupName);
+                buffer.data[groupName] = tmp;
+
+                // is it time?
+                if (completeCount === 0)
+                    callback(buffer);
+            }
+
+            return tmp;
+        }
+    };
+
+
+    this.wrap = function () {
+        var call = wrapOne;
+
+        if (!(arguments[0] instanceof Function) && (arguments[1] instanceof Function))
+            call = wrapGroup;
+
+        return call.apply(this, arguments);
+    }
+}
+
+
+
+function formatDate(date) {
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
